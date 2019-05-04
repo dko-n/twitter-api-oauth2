@@ -20,14 +20,14 @@
 (define (get-bearer-token consumer-key consumer-secret-key)
   (get-value 
     (get-bearer-token-response twitter-server oauth2-token query 
-      (based64-encode consumer-key consumer-secret-key)
+      (base64-encode consumer-key consumer-secret-key)
     )
     bearer-token-key
   ) 
 )
 
-; Encode Based64.
-(define (based64-encode consumer-key consumer-secret-key)
+; Encode Base64.
+(define (base64-encode consumer-key consumer-secret-key)
   (string-append "Basic " 
     (base64-encode-string 
       (string-append (uri-encode-string consumer-key) ":" (uri-encode-string consumer-secret-key))
@@ -37,9 +37,9 @@
 )
 
 ; POST oauth2-token.
-(define (get-bearer-token-response host path query based64)
+(define (get-bearer-token-response host path query base64)
   (receive (status header body) 
-    (http-post host path query :secure #t :Authorization based64 :Content-Type content-type) status header body
+    (http-post host path query :secure #t :Authorization base64 :Content-Type content-type) status header body
       ; ここの処理ちょっとまだ迷っている
       ; (if (string=? status success)
         (parse-json-string body)
@@ -47,7 +47,7 @@
   )
 )
 
-; 3. find only bearer token S expression.
+; find only bearer token S expression.
 (define (get-value json key)
   (find (lambda (x) (string=? (car x) key)) json)
 )
