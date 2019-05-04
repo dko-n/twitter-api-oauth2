@@ -13,7 +13,6 @@
 (define oauth2-token "/oauth2/token")
 (define query '(("grant_type" "client_credentials")))
 (define content-type "application/x-www-form-urlencoded;charset=UTF-8")
-(define success "200")
 (define bearer-token-key "access_token")
 
 ; Export Proc
@@ -40,10 +39,7 @@
 (define (get-bearer-token-response host path query base64)
   (receive (status header body) 
     (http-post host path query :secure #t :Authorization base64 :Content-Type content-type) status header body
-      ; ここの処理ちょっとまだ迷っている
-      ; (if (string=? status success)
-        (parse-json-string body)
-      ; )
+      (parse-json-string body)
   )
 )
 
