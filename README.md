@@ -1,8 +1,6 @@
 twitter-api-oauth2
 ====
 
-Overview
-
 ## Description
 twitter apiのアクセストークンをoauth2で取得します。
 
@@ -15,6 +13,7 @@ twitter apiのアクセストークンをoauth2で取得します。
 
 (require "./twitter-oauth2")
 (import twitter-oauth2)
+
 (define cons-key API-key)
 (define sec-key API-secret-key)
 
